@@ -29,4 +29,7 @@ cd /usr/lib/266/stai-blockchain/
 stai start farmer
 #stai show -s
 
-fetching -e 11
+cd /usr/lib/266/flax-blockchain/
+. ./activate
+flax start farmer
+#fetching -e 11
