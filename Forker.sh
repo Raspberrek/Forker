@@ -41,7 +41,7 @@ case $n in
 	  echo -e "\e[1;32m| 3.) Exit             |\e[0m"
 	  echo -e "\e[1;32m-----------------------\e[0m"
 	  read z
-	  ./temp_monitor2.sh;read k;./Forker.sh;;
+	  ./temp_monitor.sh;read k;./Forker.sh;;
   #echo "no implemented yet, sorry!";;  
   3) echo -e "Closing app...\nDone \n";;
   *) echo -e "Invalid option, provide number again"; ./Forker.sh;;
