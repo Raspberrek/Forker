@@ -14,7 +14,7 @@
   - check wallets (coins summary, xch, forks) 
  
 -disk management:
-  -mount disks for plots path
-  -check temperatures
-  -S.M.A.R.T. check, tests
-  -real-time temp-monitor with trigger and unmount if required
+  - mount disks for plots path
+  - check temperatures
+  - S.M.A.R.T. check, tests
+  - real-time temp-monitor with trigger and unmount if required
