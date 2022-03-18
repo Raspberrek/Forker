@@ -18,3 +18,10 @@
   - check temperatures
   - S.M.A.R.T. check, tests
   - real-time temp-monitor with trigger and unmount if required
+
+## Instalation
+```bash
+git clone https://github.com/Raspberrek/hiveOS_chia_automation.git
+cd hiveOS_chia_automation
+./Forker.sh
+```
