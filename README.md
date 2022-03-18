@@ -20,8 +20,10 @@
   - real-time temp-monitor with trigger and unmount if required
 
 ## Instalation
+On HiveOS / Ubuntu / Debian systems
 ```bash
+cd /opt/
 git clone https://github.com/Raspberrek/hiveOS_chia_automation.git
-cd hiveOS_chia_automation
+cd hiveOS_chia_automation/
 ./Forker.sh
 ```
