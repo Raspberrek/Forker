@@ -33,4 +33,29 @@ echo -e "Flax: " | lolcat
 cd /usr/lib/266/flax-blockchain/
 . ./activate
 flax show -s | grep "Time"
-echo -e "      $(flax farm summary | grep "Total size of plots") \n"
+echo -e "      $(flax farm summary | grep "Total size of plots")"
+
+echo -e "Maize: " | lolcat
+cd /usr/lib/266/maize-blockchain/
+. ./activate
+maize show -s | grep "Time"
+echo -e "      $(maize farm summary | grep "Total size of plots")"
+
+echo -e "Maize: " | lolcat
+cd /usr/lib/266/greendoge-blockchain/
+. ./activate
+greendoge show -s | grep "Time"
+echo -e "      $(greendoge farm summary | grep "Total size of plots")"
+
+echo -e "Gold: " | lolcat
+cd /usr/lib/266/gold-blockchain/
+. ./activate
+gold show -s | grep "Time"
+echo -e "      $(gold farm summary | grep "Total size of plots")"
+
+echo -e "Profit: " | lolcat
+cd /usr/lib/266/profit-blockchain/
+. ./activate profit show -s | grep "Time"
+echo -e "      $(profit farm summary | grep "Total size of plots") \n"
+
+
