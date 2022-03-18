@@ -41,7 +41,7 @@ cd /usr/lib/266/maize-blockchain/
 maize show -s | grep "Time"
 echo -e "      $(maize farm summary | grep "Total size of plots")"
 
-echo -e "Maize: " | lolcat
+echo -e "Greendoge: " | lolcat
 cd /usr/lib/266/greendoge-blockchain/
 . ./activate
 greendoge show -s | grep "Time"
@@ -55,7 +55,6 @@ echo -e "      $(gold farm summary | grep "Total size of plots")"
 
 echo -e "Profit: " | lolcat
 cd /usr/lib/266/profit-blockchain/
-. ./activate profit show -s | grep "Time"
+. ./activate
+profit show -s | grep "Time"
 echo -e "      $(profit farm summary | grep "Total size of plots") \n"
-
-
