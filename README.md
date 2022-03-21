@@ -1,6 +1,9 @@
 
 # Usefull automation program for chia and forks
 
+### Demo 2.0:
+https://user-images.githubusercontent.com/54684949/159302542-5993e52b-1d33-4be5-a6d1-92f40347dc9f.mp4
+
 ## Functionality:
 -check all forks status like:
   - start/restart all forks
