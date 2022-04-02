@@ -22,8 +22,8 @@ case $n in
 	  echo -e "\e[1;32m------\e[1;36mForks actions\e[1;32m------\e[0m"
 	  echo -e "\e[1;32m| 1. Database sync time |\e[0m"
 	  echo -e "\e[1;32m| 2. Plots size summary |\e[0m"
-	  echo -e "\e[1;32m| 3. Start all farmers  |\e[0m"
-	  echo -e "\e[1;32m| 4. Start one farmer   |\e[0m"
+	  echo -e "\e[1;32m| 3. Start farmer       |\e[0m"
+	 #echo -e "\e[1;32m| 4.--------------------|\e[0m"
 	 #echo -e "\e[1;32m| 5.--------------------|\e[0m"
   	 #echo -e "\e[1;32m| 6.--------------------|\e[0m"
 	 #echo -e "\e[1;32m| 7.--------------------|\e[0m"
@@ -31,24 +31,21 @@ case $n in
 	  echo -e "Your option: "
 	  read action_choice
 	  
-	if [ $action_choice = 1 ] ; then
-		echo "Plots size summary:"
-
-	elif [ $action_choice = 2 ] ; then
-		echo "Database sync time:"
-	
-	elif [ $action_choice = 3 ] ; then
-		echo "Starting farmers... "
-
-	elif [ $action_choice = 4 ] ; then #run specyfied farmer
-		echo "Available farmers:"
+	  echo -e "Do you want run all forks, or just one?\n1: One \n2: All \n"
+	read type
+	#-------------------------------------------------------------------------
+	if [ $type = 1 ] ; then #Run specyfied farmer
+		echo -e "\e[1;32m-----------\e[0m"
+		echo -e "\e[1;36mAvailable farmers:\e[0m"
+		echo "\e[1;32m|\e[0m"
 		for((j=0; j<${length_fp}; j++));
 			do
-				echo -e "$j ${forks_triggers[$j]}"
+				echo -e "\e[1;32m|-\e[0m$j -> ${forks_triggers[$j]}"
 			done
+		echo "-----------"
 		echo "Select farmer: "
 		read fork_number
-		if [ ${forks_pathes[$fork_number]} = "chia" ] ; then 
+				if [ ${forks_pathes[$fork_number]} = "chia" ] ; then 
 			cd /usr/lib/266
 		elif [ ${forks_pathes[$fork_number]} = "doge-chia" ] ; then 
 			cd /usr/lib/266/doge-chia
@@ -58,32 +55,37 @@ case $n in
 			cd /usr/lib/266/${forks_pathes[$fork_number]}-blockchain/
 		fi
 		. ./activate
-		${forks_triggers[$fork_number]} ${action[2]} #start farmer
+		${forks_triggers[$fork_number]} ${action[$action_choice]} #start farmer
 		echo -e "Press any key to continue...\n"
 		read k
 		cd /opt/Forker
 		./Forker.sh
+	#-------------------------------------------------------------------------
+	elif [ $type = 2 ] ; then #Run all available farmers
+	
+		for((j=0; j<${length_fp}; j++));
+			do
+			echo -e "\n ${forks_pathes[$j]}:" | lolcat #coloring fork name wchih be used
+			if [ ${forks_pathes[$j]} = "chia" ]
+			then
+			cd /usr/lib/266
+			elif [ ${forks_pathes[$j]} = "doge-chia" ] 
+			then
+			cd /usr/lib/266/doge-chia
+			elif [ ${forks_pathes[$j]} = "cryptodoge" ] 
+			then
+			cd /usr/lib/266/cryptodoge
+			else
+			cd /usr/lib/266/${forks_pathes[$j]}-blockchain/ #use your right path before fath variable
+			fi	
+			. ./activate #standard way to run trigger
+			${forks_triggers[$j]} ${action[$action_choice-1]}  | grep "Total size of plots:\|Time:\|Daemon\|_charvester\|_farmer\|_full_node\|_wallet"
+		done
+	#-------------------------------------------------------------------------
 	else
-		echo "You selected wrong option, provide number again:"
-	fi  
-	for((j=0; j<${length_fp}; j++));
-		do
-		echo -e "\n ${forks_pathes[$j]}:" | lolcat #coloring fork name wchih be used
-		if [ ${forks_pathes[$j]} = "chia" ]
-		then
-		cd /usr/lib/266
-		elif [ ${forks_pathes[$j]} = "doge-chia" ] 
-		then
-		cd /usr/lib/266/doge-chia
-		elif [ ${forks_pathes[$j]} = "cryptodoge" ] 
-		then
-		cd /usr/lib/266/cryptodoge
-		else
-		cd /usr/lib/266/${forks_pathes[$j]}-blockchain/ #use your right path before fath variable
-		fi	
-		. ./activate #standard way to run trigger
-		${forks_triggers[$j]} ${action[$action_choice-1]}  | grep "Total size of plots:\|Time:\|Daemon\|_charvester\|_farmer\|_full_node\|_wallet"
-	done
+		echo "Wrong option"
+	fi
+       	     
 	echo -e "Press any key to continue...\n"
 	read k #waiting for action
 	cd /opt/Forker
@@ -116,10 +118,11 @@ case $n in
 		  ./Forker.sh	  
 	  else 
 		  echo "Invalid option, provide number again"
-
+		  echo -e "Press any key to continue...\n"
+		  read k #waiting for action
+		  cd /opt/Forker
+		  ./Forker.sh
 	  fi
-	  #./temp_monitor.sh;read k;
-	  #./Forker.sh
 	;;
   3) echo -e "Closing app...\nDone \n";;
   *) echo -e "Invalid option, provide number again"; ./Forker.sh;;
