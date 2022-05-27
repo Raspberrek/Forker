@@ -1,6 +1,6 @@
-forks_pathes=("chia" "greendoge" "ext9" "doge-chia" "stor" "cryptodoge" "silicoin" "hddcoin" "flora" "stai" "flax" "maize" "gold" "profit" "socks" "btcgreen" "apple" "taco")
-forks_triggers=("chia" "greendoge" "chia" "dogechia" "stor" "cryptodoge" "sit" "hddcoin" "flora" "stai" "flax" "maize" "gold" "profit" "socks" "btcgreen" "apple" "taco")
-action=("show -s" "farm summary" "start farmer") #action on triggers
+forks_pathes=("chia" "flora" "flax" "petroleum" "maize" "stai")
+forks_triggers=("chia" "flora" "flax" "petroleum" "maize" "stai")
+action=("show -s" "farm summary" "start farmer" "start farmer -r") #action on triggers
 
 length_fp=${#forks_pathes[@]} #length of forks pathes array
 
@@ -23,7 +23,7 @@ case $n in
 	  echo -e "\e[1;32m| 1. Database sync time |\e[0m"
 	  echo -e "\e[1;32m| 2. Plots size summary |\e[0m"
 	  echo -e "\e[1;32m| 3. Start farmer       |\e[0m"
-	 #echo -e "\e[1;32m| 4.--------------------|\e[0m"
+	  echo -e "\e[1;32m| 4. Restart farmer     |\e[0m"
 	 #echo -e "\e[1;32m| 5.--------------------|\e[0m"
   	 #echo -e "\e[1;32m| 6.--------------------|\e[0m"
 	 #echo -e "\e[1;32m| 7.--------------------|\e[0m"
@@ -45,38 +45,30 @@ case $n in
 		echo "-----------"
 		echo "Select farmer: "
 		read fork_number
-				if [ ${forks_pathes[$fork_number]} = "chia" ] ; then 
-			cd /usr/lib/266
-		elif [ ${forks_pathes[$fork_number]} = "doge-chia" ] ; then 
-			cd /usr/lib/266/doge-chia
+		if [ ${forks_pathes[$fork_number]} = "doge-chia" ] ; then 
+			cd /opt/doge-chia
 		elif [ ${forks_pathes[$fork_number]} = "cryptodoge" ] ; then 
-			cd /usr/lib/266/cryptodoge
+			cd /opt/cryptodoge
 		else
-			cd /usr/lib/266/${forks_pathes[$fork_number]}-blockchain/
+			cd /opt/${forks_pathes[$fork_number]}-blockchain/
 		fi
 		. ./activate
-		${forks_triggers[$fork_number]} ${action[$action_choice]} #start farmer
-		echo -e "Press any key to continue...\n"
+		${forks_triggers[$fork_number]} ${action[$action_choice]} #start farmer / other command
+		echo -e "Press any key to exit...\n"
 		read k
-		cd /opt/Forker
-		./Forker.sh
+		cd /opt
+				exit
 	#-------------------------------------------------------------------------
 	elif [ $type = 2 ] ; then #Run all available farmers
 	
 		for((j=0; j<${length_fp}; j++));
 			do
 			echo -e "\n ${forks_pathes[$j]}:" | lolcat #coloring fork name wchih be used
-			if [ ${forks_pathes[$j]} = "chia" ]
+			if [ ${forks_pathes[$j]} = "cryptodoge" ] 
 			then
-			cd /usr/lib/266
-			elif [ ${forks_pathes[$j]} = "doge-chia" ] 
-			then
-			cd /usr/lib/266/doge-chia
-			elif [ ${forks_pathes[$j]} = "cryptodoge" ] 
-			then
-			cd /usr/lib/266/cryptodoge
+			cd /opt/cryptodoge
 			else
-			cd /usr/lib/266/${forks_pathes[$j]}-blockchain/ #use your right path before fath variable
+			cd /opt/${forks_pathes[$j]}-blockchain/ #use your right path before fath variable
 			fi	
 			. ./activate #standard way to run trigger
 			${forks_triggers[$j]} ${action[$action_choice-1]}  | grep "Total size of plots:\|Time:\|Daemon\|_charvester\|_farmer\|_full_node\|_wallet"
