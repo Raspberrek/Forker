@@ -9,8 +9,8 @@
 # mkdir /home/opt/plots/plots7
 
 mount /dev/sda1 /opt/plots/plots1
-mount /dev/sdb2 /opt/plots/plots2
-mount /dev/sdc1 /opt/plots/plots3
+mount /dev/sdb1 /opt/plots/plots2
+mount /dev/sdc2 /opt/plots/plots3
 mount /dev/sdd2 /opt/plots/plots4
 mount /dev/sde2 /opt/plots/plots5
 mount /dev/sdf2 /opt/plots/plots6

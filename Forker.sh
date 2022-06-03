@@ -1,7 +1,6 @@
-forks_pathes=("chia" "flora" "flax" "petroleum" "maize" "stai")
-forks_triggers=("chia" "flora" "flax" "petroleum" "maize" "stai")
-action=("show -s" "farm summary" "start farmer" "start farmer -r") #action on triggers
-
+forks_pathes=("chia" "flora" "flax" "petroleum" "maize" "stai") #first part of fork path (second part -blockchain should be always the same)
+forks_triggers=("chia" "flora" "flax" "petroleum" "maize" "stai") #keyword used to run action in fork for example "chia start farmer" where "chia" is triger
+action=("show -s" "farm summary" "start farmer" "start farmer -r" "wallet show") #action on triggers, for example in "chia start farmer", "start farmer" is action variable
 length_fp=${#forks_pathes[@]} #length of forks pathes array
 
 #main view of script
@@ -12,7 +11,7 @@ echo -e "\e[1;32m| 1.) Forks actions     |\e[0m"
 echo -e "\e[1;32m| 2.) Disk actions      |\e[0m" 
 echo -e "\e[1;32m| 3.) Exit              |\e[0m"
 echo -e "\e[1;32m-------------------------\e[0m"
-echo -e "Your option: "
+echo -e "Select option: "
 read n
 case $n in
   1) 
@@ -24,7 +23,7 @@ case $n in
 	  echo -e "\e[1;32m| 2. Plots size summary |\e[0m"
 	  echo -e "\e[1;32m| 3. Start farmer       |\e[0m"
 	  echo -e "\e[1;32m| 4. Restart farmer     |\e[0m"
-	 #echo -e "\e[1;32m| 5.--------------------|\e[0m"
+	  echo -e "\e[1;32m| 5. Show wallet balance|\e[0m"
   	 #echo -e "\e[1;32m| 6.--------------------|\e[0m"
 	 #echo -e "\e[1;32m| 7.--------------------|\e[0m"
 	  echo -e "\e[1;32m-------------------------\e[0m"
@@ -53,7 +52,7 @@ case $n in
 			cd /opt/${forks_pathes[$fork_number]}-blockchain/
 		fi
 		. ./activate
-		${forks_triggers[$fork_number]} ${action[$action_choice]} #start farmer / other command
+		${forks_triggers[$fork_number]} ${action[$action_choice-1]} #start farmer / other command
 		echo -e "Press any key to exit...\n"
 		read k
 		cd /opt
@@ -71,7 +70,7 @@ case $n in
 			cd /opt/${forks_pathes[$j]}-blockchain/ #use your right path before fath variable
 			fi	
 			. ./activate #standard way to run trigger
-			${forks_triggers[$j]} ${action[$action_choice-1]}  | grep "Total size of plots:\|Time:\|Daemon\|_charvester\|_farmer\|_full_node\|_wallet"
+			${forks_triggers[$j]} ${action[$action_choice-1]}  | grep "Total size of plots:\|Time:\|Daemon\|_charvester\|_farmer\|_full_node\|_wallet\|Total"
 		done
 	#-------------------------------------------------------------------------
 	else
@@ -83,7 +82,9 @@ case $n in
 	cd /opt/Forker
 	./Forker.sh
 	;;
-  2) echo -e "\e[1;32m-------------------------\e[0m"
+  2) 
+	  #clear
+	  echo -e "\e[1;32m-------------------------\e[0m"
 	  echo -e "\e[1;32m------\e[1;36mDisk actions:\e[1;32m------\e[0m"
 	  echo -e "\e[1;32m| 1.) Check *C          |\e[0m"
 	  echo -e "\e[1;32m| 2.) Mount disks       |\e[0m" 
