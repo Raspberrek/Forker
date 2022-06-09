@@ -1,5 +1,5 @@
-forks_pathes=("chia" "flora" "flax" "petroleum" "maize" "stai") #first part of fork path (second part -blockchain should be always the same)
-forks_triggers=("chia" "flora" "flax" "petroleum" "maize" "stai") #keyword used to run action in fork for example "chia start farmer" where "chia" is triger
+forks_pathes=("chia" "flax" "petroleum" "maize" "stai" "greendoge" "silicoin" "btcgreen" "stor" "hddcoin" "seno" "socks" "venidium" "apple" "cryptodoge") #first part of fork path (second part -blockchain should be always the same)
+forks_triggers=("chia" "flax" "petroleum" "maize" "stai" "greendoge" "sit" "btcgreen" "stor" "hddcoin" "seno" "socks" "venidium" "apple" "cryptodoge") #keyword used to run action in fork for example "chia start farmer" where "chia" is triger
 action=("show -s" "farm summary" "start farmer" "start farmer -r" "wallet show") #action on triggers, for example in "chia start farmer", "start farmer" is action variable
 length_fp=${#forks_pathes[@]} #length of forks pathes array
 
@@ -71,6 +71,7 @@ case $n in
 			fi	
 			. ./activate #standard way to run trigger
 			${forks_triggers[$j]} ${action[$action_choice-1]}  | grep "Total size of plots:\|Time:\|Daemon\|_charvester\|_farmer\|_full_node\|_wallet\|Total"
+			sleep 5
 		done
 	#-------------------------------------------------------------------------
 	else
